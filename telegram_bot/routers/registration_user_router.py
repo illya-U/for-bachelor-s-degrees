@@ -1,5 +1,5 @@
 from aiogram import Router, types, Bot
-from aiogram.filters import Command
+from aiogram.filters import Command, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import UserProfilePhotos
 
@@ -16,7 +16,7 @@ class RegistrationUserRouter(AbstractRouter):
     bot: Bot
 
     def initialize_commands(self):
-        self.router.message(Command(commands=['start']))(self.start_handler)
+        self.router.message(Command(commands=['start']), StateFilter(None))(self.start_handler)
 
     async def start_handler(self, message: types.Message, state: FSMContext):
         user_id = message.from_user.id

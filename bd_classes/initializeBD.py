@@ -40,3 +40,6 @@ class SessionManager:
 
     def find_user_by_id(self, user_id):
         return self.user_management.find_user_by_id(user_id)
+
+    def add_point_on_the_map(self, user_id, location, description, photo_path):
+        return self.point_on_the_map_management.add_point(user_id, location, description, photo_path)
