@@ -21,29 +21,29 @@ class RegistrationUserRouter(AbstractRouter):
     async def start_handler(self, message: types.Message, state: FSMContext):
         user_id = message.from_user.id
         user_name = message.from_user.full_name
-        user_photos: UserProfilePhotos = await self.bot.get_user_profile_photos(user_id=user_id)
+        user_photos: UserProfilePhotos = await message.bot.get_user_profile_photos(user_id=user_id)
 
         if self.session.find_user_by_id(user_id):
             await self.answer_for_start_handler(message=message, state=state, is_new_user=False)
             return
 
-        user_photo_file_path = get_cred().get("user_photo_path")
+        user_photo_folder_path = get_cred().get("user_folder_photo_path")
 
         try:
             photo_id = user_photos.photos[0][0].file_id
-            file_path = await self.bot.get_file(photo_id)
+            file_path = await message.bot.get_file(photo_id)
 
             user_photo_name = f"{user_id}_photo.jpg"
 
-            await self.bot.download_file(file_path.file_path, user_photo_file_path + user_photo_name)
+            await message.bot.download_file(file_path.file_path, user_photo_folder_path + user_photo_name)
         except IndexError:
             print(f"User {user_id}, {user_name}, have no photo")
-            user_photo_name = get_cred().get("default_photo_name")
+            user_photo_name = get_cred().get("default_photo_user_name")
 
         self.session.create_new_user(
             user_id=user_id,
             user_name=user_name,
-            user_photo_path=user_photo_file_path + user_photo_name
+            user_photo_path=user_photo_folder_path + user_photo_name
         )
 
         await self.answer_for_start_handler(message=message, state=state, is_new_user=True)

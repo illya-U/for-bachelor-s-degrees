@@ -13,12 +13,11 @@ from telegram_bot.routers.abstract_router import AbstractRouter
 class CreatingLocationReportRouter(AbstractRouter):
     router: Router
     session: SessionManager
-    bot: Bot
 
     def initialize_commands(self):
         self.router.message(F.location, LocationSender.creating_location_report)(self.handle_location)
         self.router.message(F.text, LocationSender.creating_location_report)(self.handle_description)
-        # self.router.message(, LocationSender.creating_location_report)(self.handle_photo)
+        self.router.message(F.photo, LocationSender.creating_location_report)(self.handle_photo)
 
     async def handle_location(self, message: types.Message, state: FSMContext):
         latitude = message.location.latitude
@@ -38,7 +37,6 @@ class CreatingLocationReportRouter(AbstractRouter):
         )
 
     async def handle_description(self, message: types.Message, state: FSMContext):
-
         await state.update_data(description=message.text)
 
         start_of_answer = f"Дякую, інформацію отримана! "
@@ -50,11 +48,18 @@ class CreatingLocationReportRouter(AbstractRouter):
         )
 
     async def handle_photo(self, message: types.Message, state: FSMContext):
-        pass
+        await state.update_data(photo_file_id=message.photo[-1].file_id)
+
+        start_of_answer = f"Дякую, фото отримано! "
+
+        await self._answer_for_handle_point_on_the_map_addition(
+            message,
+            state,
+            start_of_answer=start_of_answer
+        )
 
 
     # discussion to take this logic on middleware level(_answer_for_handle_point_on_the_map_addition and _get_not_fulfilled_requirements)
-
     async def _answer_for_handle_point_on_the_map_addition(self, message: types.Message, state: FSMContext, start_of_answer="") -> None:
         not_fulfilled_requirements = await self._get_not_fulfilled_requirements(state)
 
@@ -65,11 +70,17 @@ class CreatingLocationReportRouter(AbstractRouter):
 
         point_data = await state.get_data()
 
+        photo_path = await self._download_photo_location(
+            bot=message.bot,
+            location=point_data.get("location", {}),
+            photo_file_id=point_data.get("photo_file_id", "")
+        )
+
         self.session.add_point_on_the_map(
             user_id=message.from_user.id,
             location=point_data.get("location", {}),
             description=point_data.get("description", ""),
-            photo_path=point_data.get("photo_path", "")
+            photo_path=photo_path
         )
 
         await state.clear()
@@ -77,13 +88,28 @@ class CreatingLocationReportRouter(AbstractRouter):
 
     async def _get_not_fulfilled_requirements(self, state: FSMContext) -> Union[list, bool]:
         point_data = await state.get_data()
-        requirements = ["location", "description", "photo_path"]
+        requirements = ["location", "description", "photo_file_id"]
 
         not_fulfilled_requirements = [requirement for requirement in requirements if requirement not in point_data.keys()]
 
         if not not_fulfilled_requirements:
             return False
         return not_fulfilled_requirements
+
+    async def _download_photo_location(self, bot, location, photo_file_id) -> str:
+
+        location_folder_photo_path = get_cred().get("location_folder_photo_path")
+
+        latitude = location.get("latitude", 0)
+        longitude = location.get("longitude", 0)
+
+        file_name = f"latitude={latitude}_longitude={longitude}_photo.jpg"
+        location_photo_path = location_folder_photo_path + file_name
+
+        await bot.download(file=photo_file_id, destination=location_photo_path)
+        return location_photo_path
+
+
 
 
 

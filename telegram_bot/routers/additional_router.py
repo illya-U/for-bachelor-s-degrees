@@ -8,7 +8,6 @@ from telegram_bot.routers.abstract_router import AbstractRouter
 class AdditionalRouter(AbstractRouter):
     router: Router
     session: SessionManager
-    bot: Bot
 
     def initialize_commands(self):
         self.router.message(Command(commands=['help']))(self.help_handler)

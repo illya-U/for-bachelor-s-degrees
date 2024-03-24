@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -11,7 +11,8 @@ class PointOnTheMapTable(Base):
 
     message_id = Column(Integer, primary_key=True, nullable=False)
     photo_path = Column(String)
-    location_id = Column(Integer, nullable=False)
+    latitude = Column(Float, nullable=False)
+    longitude = Column(Float, nullable=False)
     message = Column(String)
     user = Column(Integer, ForeignKey('public.users.user_id'), nullable=False)
 

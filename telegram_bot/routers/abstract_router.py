@@ -3,10 +3,9 @@ from abc import ABC, abstractmethod
 
 
 class AbstractRouter(ABC):
-    def __init__(self, session, bot):
+    def __init__(self, session):
         self.router = Router()
         self.session = session
-        self.bot = bot
         self.initialize_commands()
 
     @abstractmethod
