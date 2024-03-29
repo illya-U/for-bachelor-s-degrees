@@ -1,22 +1,21 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Float
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
-Base = declarative_base()
+from bd_classes.tables.Base import Base
 
 
 class PointOnTheMapTable(Base):
     __tablename__ = 'point_on_the_map'
     __table_args__ = {'schema': 'public'}
 
-    message_id = Column(Integer, primary_key=True, nullable=False)
+    message_id = Column(Integer, primary_key=True, unique=True, nullable=False)
     photo_path = Column(String)
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
     message = Column(String)
-    user = Column(Integer, ForeignKey('public.users.user_id'), nullable=False)
+    user_id = Column(Integer, ForeignKey('public.user.user_id'), nullable=False)
 
-    user_relationship = relationship("UserTable", back_populates="points_on_the_map")
+    user_relationship = relationship("UserTable")
 
     def __repr__(self):
         return f"<PointOnTheMapTable(message_id={self.message_id}, photo_path={self.photo_path}, location_id={self.location_id}, message={self.message}, user={self.user})>"

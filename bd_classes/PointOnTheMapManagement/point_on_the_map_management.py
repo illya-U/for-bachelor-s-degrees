@@ -12,7 +12,7 @@ class PointOnTheMapManagement:
             latitude=location.get("latitude", 0),
             longitude=location.get("longitude", 0),
             message=description,
-            user=user_id
+            user_id=user_id
         )
 
         self.session.add(new_report)

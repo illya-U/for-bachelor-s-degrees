@@ -1,12 +1,10 @@
 from sqlalchemy import Column, String, BigInteger
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.schema import Sequence
 
-Base = declarative_base()
+from bd_classes.tables.Base import Base
 
 
 class UserTable(Base):
-    __tablename__ = 'users'
+    __tablename__ = 'user'
     __table_args__ = {'schema': 'public'}
 
     user_id = Column(BigInteger, primary_key=True, unique=True, autoincrement=False)
