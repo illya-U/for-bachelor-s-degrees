@@ -1,10 +1,14 @@
 import configparser
 
+CRED_FILE = "D:\diplom\cred.ini"
+
 
 class HostConfig:
     def __init__(self):
         self.config = configparser.ConfigParser()
-        self.config.read('cred.ini')
+        status = self.config.read(CRED_FILE)
+        if not status:
+            raise Exception("No credentials in directory diplom\cred.ini")
 
     @property
     def TelegramBot(self):
