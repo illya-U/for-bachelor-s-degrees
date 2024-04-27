@@ -1,11 +1,12 @@
 from typing import Union
 
-from aiogram import Router, types, Bot, F
+from aiogram import Router, types, F
 from aiogram.fsm.context import FSMContext
 from aiogram.types import ReplyKeyboardRemove
 
-from bd_classes.initializeBD import SessionManager
-from get_cred import get_cred
+from get_cred import HostConfig
+from telegram_bot.ServiceLocator import ServiceLocator
+from telegram_bot.bd_classes.initializeBD import SessionManager
 from telegram_bot.FinalStateMachine import LocationSender
 from telegram_bot.routers.abstract_router import AbstractRouter
 
@@ -13,6 +14,11 @@ from telegram_bot.routers.abstract_router import AbstractRouter
 class CreatingLocationReportRouter(AbstractRouter):
     router: Router
     session: SessionManager
+    cred: HostConfig
+
+    def __init__(self):
+        super().__init__()
+        self.cred = ServiceLocator.get_service("credentials")
 
     def initialize_commands(self):
         self.router.message(F.location, LocationSender.creating_location_report)(self.handle_location)
@@ -96,7 +102,7 @@ class CreatingLocationReportRouter(AbstractRouter):
 
     async def _download_photo_location(self, bot, photo_file_id) -> str:
 
-        location_folder_photo_path = get_cred().get("location_folder_photo_path")
+        location_folder_photo_path = self.cred.LocationPhoto["location_folder_photo_path"]
 
         file_name = f"{photo_file_id}_photo.jpg"
         location_photo_path = location_folder_photo_path + file_name

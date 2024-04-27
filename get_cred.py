@@ -1,14 +1,25 @@
-import os
-import sys
+import configparser
 
 
-def get_cred():
-    config = {}
-    with open(os.path.join(sys.path[0], "cred.txt"), "r") as conf_file:
-        for cred in conf_file:
-            try:
-                key, value = cred.split(" = ")
-            except ValueError:
-                continue
-            config.update({key: value.strip()})
-    return config
+class HostConfig:
+    def __init__(self):
+        self.config = configparser.ConfigParser()
+        self.config.read('cred.ini')
+
+    @property
+    def TelegramBot(self):
+        return self.config["TelegramBot"]
+
+    @property
+    def Database(self):
+        return self.config["Database"]
+
+    @property
+    def UserPhoto(self):
+        return self.config["UserPhoto"]
+
+    @property
+    def LocationPhoto(self):
+        return self.config["LocationPhoto"]
+
+

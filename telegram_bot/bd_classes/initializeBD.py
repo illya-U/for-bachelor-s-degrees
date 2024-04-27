@@ -3,14 +3,13 @@ from sqlalchemy.orm import sessionmaker
 
 from sys import exit
 
-from ServiceLocator import ServiceLocator
-from bd_classes.PointOnTheMapManagement.point_on_the_map_management import PointOnTheMapManagement
-from bd_classes.UserManagement.user_management import UserManagement
-from get_cred import get_cred
+from telegram_bot.ServiceLocator import ServiceLocator
+from telegram_bot.bd_classes.PointOnTheMapManagement.point_on_the_map_management import PointOnTheMapManagement
+from telegram_bot.bd_classes.UserManagement.user_management import UserManagement
 
 
 def session_initialization():
-    cred = get_cred()
+    cred = ServiceLocator.get_service("credentials").Database
     db_name = cred.get("DB_NAME")
     db_user = cred.get("DB_USER")
     db_password = cred.get("DB_PASSWORD")

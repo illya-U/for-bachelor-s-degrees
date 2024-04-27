@@ -7,8 +7,8 @@ from aiogram import Bot, Dispatcher
 from sys import exit
 
 from telegram_bot.bot import BotManager, set_commands
-from get_cred import get_cred
-from ServiceLocator import ServiceLocator
+from get_cred import HostConfig
+from telegram_bot.ServiceLocator import ServiceLocator
 
 
 def on_startup():
@@ -20,18 +20,18 @@ def on_startup():
 async def main():
     print("Bot start")
 
-    CRED = get_cred()
-    BOT_TOKEN = CRED.get("BOT_TOKEN")
-    if not BOT_TOKEN:
+    cred = HostConfig()
+    bot_token = cred.TelegramBot["BOT_TOKEN"]
+    if not bot_token:
         exit("Error: no token provided")
-    bot = Bot(token=BOT_TOKEN)
+    bot = Bot(token=bot_token)
     dp = Dispatcher()
     logging.basicConfig(level=logging.INFO)
 
-    ServiceLocator.register_service("bot", bot)
     ServiceLocator.register_service("dispatcher", dp)
+    ServiceLocator.register_service("credentials", cred)
 
-    await set_commands()
+    await set_commands(bot)
 
     on_startup()
 

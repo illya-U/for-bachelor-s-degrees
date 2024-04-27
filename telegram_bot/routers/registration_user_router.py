@@ -3,8 +3,9 @@ from aiogram.filters import Command, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import UserProfilePhotos
 
-from bd_classes.initializeBD import SessionManager
-from get_cred import get_cred
+from get_cred import HostConfig
+from telegram_bot.ServiceLocator import ServiceLocator
+from telegram_bot.bd_classes.initializeBD import SessionManager
 from telegram_bot.FinalStateMachine import LocationSender
 from telegram_bot.inline_keyboard.send_location_button import get_send_location_button
 from telegram_bot.routers.abstract_router import AbstractRouter
@@ -14,6 +15,11 @@ class RegistrationUserRouter(AbstractRouter):
     router: Router
     session: SessionManager
     bot: Bot
+    cred: HostConfig
+
+    def __init__(self):
+        super().__init__()
+        self.cred = ServiceLocator.get_service("credentials")
 
     def initialize_commands(self):
         self.router.message(Command(commands=['start']), StateFilter(None))(self.start_handler)
@@ -27,7 +33,7 @@ class RegistrationUserRouter(AbstractRouter):
             await self.answer_for_start_handler(message=message, state=state, is_new_user=False)
             return
 
-        user_photo_folder_path = get_cred().get("user_folder_photo_path")
+        user_photo_folder_path = self.cred.UserPhoto["user_folder_photo_path"]
 
         try:
             photo_id = user_photos.photos[0][0].file_id
@@ -38,7 +44,7 @@ class RegistrationUserRouter(AbstractRouter):
             await message.bot.download_file(file_path.file_path, user_photo_folder_path + user_photo_name)
         except IndexError:
             print(f"User {user_id}, {user_name}, have no photo")
-            user_photo_name = get_cred().get("default_photo_user_name")
+            user_photo_name = self.cred.UserPhoto["default_photo_user_name"]
 
         self.session.create_new_user(
             user_id=user_id,
