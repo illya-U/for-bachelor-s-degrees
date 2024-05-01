@@ -3,12 +3,12 @@ from aiogram.filters import Command, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import UserProfilePhotos
 
-from telegram_bot.get_cred import HostConfig
-from telegram_bot.ServiceLocator import ServiceLocator
-from telegram_bot.bd_classes.initializeBD import SessionManager
-from telegram_bot.FinalStateMachine import LocationSender
-from telegram_bot.inline_keyboard.send_location_button import get_send_location_button
-from telegram_bot.routers.abstract_router import AbstractRouter
+from get_cred import HostConfig
+from ServiceLocator import ServiceLocator
+from bd_classes.initializeBD import SessionManager
+from FinalStateMachine import LocationSender
+from inline_keyboard.send_location_button import get_send_location_button
+from routers.abstract_router import AbstractRouter
 
 
 class RegistrationUserRouter(AbstractRouter):

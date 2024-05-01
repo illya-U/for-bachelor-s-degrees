@@ -1,7 +1,7 @@
 from aiogram import Router
 from abc import ABC, abstractmethod
 
-from telegram_bot.ServiceLocator import ServiceLocator
+from ServiceLocator import ServiceLocator
 
 
 class AbstractRouter(ABC):

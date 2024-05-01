@@ -1,9 +1,9 @@
 from aiogram.types import BotCommand
 
-from telegram_bot.routers.additional_router import AdditionalRouter
-from telegram_bot.routers.creating_location_report_router import CreatingLocationReportRouter
-from telegram_bot.routers.registration_user_router import RegistrationUserRouter
-from telegram_bot.ServiceLocator import ServiceLocator
+from routers.additional_router import AdditionalRouter
+from routers.creating_location_report_router import CreatingLocationReportRouter
+from routers.registration_user_router import RegistrationUserRouter
+from ServiceLocator import ServiceLocator
 
 
 async def set_commands(bot):

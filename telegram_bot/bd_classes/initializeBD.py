@@ -3,9 +3,9 @@ from sqlalchemy.orm import sessionmaker
 
 from sys import exit
 
-from telegram_bot.ServiceLocator import ServiceLocator
-from telegram_bot.bd_classes.PointOnTheMapManagement.point_on_the_map_management import PointOnTheMapManagement
-from telegram_bot.bd_classes.UserManagement.user_management import UserManagement
+from ServiceLocator import ServiceLocator
+from bd_classes.PointOnTheMapManagement.point_on_the_map_management import PointOnTheMapManagement
+from bd_classes.UserManagement.user_management import UserManagement
 
 
 def session_initialization():

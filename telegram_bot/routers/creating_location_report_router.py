@@ -4,11 +4,11 @@ from aiogram import Router, types, F
 from aiogram.fsm.context import FSMContext
 from aiogram.types import ReplyKeyboardRemove
 
-from telegram_bot.get_cred import HostConfig
-from telegram_bot.ServiceLocator import ServiceLocator
-from telegram_bot.bd_classes.initializeBD import SessionManager
-from telegram_bot.FinalStateMachine import LocationSender
-from telegram_bot.routers.abstract_router import AbstractRouter
+from get_cred import HostConfig
+from ServiceLocator import ServiceLocator
+from bd_classes.initializeBD import SessionManager
+from FinalStateMachine import LocationSender
+from routers.abstract_router import AbstractRouter
 
 
 class CreatingLocationReportRouter(AbstractRouter):

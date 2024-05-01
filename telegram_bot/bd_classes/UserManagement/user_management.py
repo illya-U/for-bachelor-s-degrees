@@ -1,4 +1,4 @@
-from telegram_bot.bd_classes.tables.UserTable import UserTable
+from bd_classes.tables.UserTable import UserTable
 
 
 class UserManagement:

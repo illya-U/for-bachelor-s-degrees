@@ -11,6 +11,10 @@ class HostConfig:
             raise Exception("No credentials in directory diplom\cred.ini")
 
     @property
+    def TelegramBot(self):
+        return self.config["TelegramBot"]
+
+    @property
     def Database(self):
         return self.config["Database"]
 

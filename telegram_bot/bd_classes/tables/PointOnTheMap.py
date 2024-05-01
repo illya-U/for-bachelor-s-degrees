@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Float
 from sqlalchemy.orm import relationship
 
-from telegram_bot.bd_classes.tables.Base import Base
+from bd_classes.tables.Base import Base
 
 
 class PointOnTheMapTable(Base):

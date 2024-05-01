@@ -1,8 +1,8 @@
 from aiogram import types, Router
 from aiogram.filters import Command
 
-from telegram_bot.bd_classes.initializeBD import SessionManager
-from telegram_bot.routers.abstract_router import AbstractRouter
+from bd_classes.initializeBD import SessionManager
+from routers.abstract_router import AbstractRouter
 
 
 class AdditionalRouter(AbstractRouter):

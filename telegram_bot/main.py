@@ -6,9 +6,9 @@ from bd_classes.initializeBD import session_initialization
 from aiogram import Bot, Dispatcher
 from sys import exit
 
-from telegram_bot.bot import BotManager, set_commands
-from telegram_bot.get_cred import HostConfig
-from telegram_bot.ServiceLocator import ServiceLocator
+from bot import BotManager, set_commands
+from get_cred import HostConfig
+from ServiceLocator import ServiceLocator
 
 
 def on_startup():

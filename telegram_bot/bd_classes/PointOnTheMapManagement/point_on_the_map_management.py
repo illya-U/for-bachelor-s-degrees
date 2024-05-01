@@ -1,4 +1,4 @@
-from telegram_bot.bd_classes.tables.PointOnTheMap import PointOnTheMapTable
+from bd_classes.tables.PointOnTheMap import PointOnTheMapTable
 
 
 class PointOnTheMapManagement:
