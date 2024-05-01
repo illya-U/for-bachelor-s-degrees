@@ -13,6 +13,8 @@ class PointOnTheMap(models.Model):
         return f"message_id = {self.message_id}, '{self.message}'"
 
     class Meta:
+        verbose_name = "Точка на карті"
+        verbose_name_plural = "Точки на карті"
         managed = False
         db_table = 'point_on_the_map'
 
@@ -26,6 +28,8 @@ class User(models.Model):
         return f"user_id = {self.user_id} '{self.user_name}'"
 
     class Meta:
+        verbose_name = "Користувач Телеграму"
+        verbose_name_plural = "Користувачі Телеграму"
         managed = False
         db_table = 'user'
 
