@@ -3,7 +3,7 @@ from aiogram.filters import Command, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import UserProfilePhotos
 
-from get_cred import HostConfig
+from telegram_bot.get_cred import HostConfig
 from telegram_bot.ServiceLocator import ServiceLocator
 from telegram_bot.bd_classes.initializeBD import SessionManager
 from telegram_bot.FinalStateMachine import LocationSender

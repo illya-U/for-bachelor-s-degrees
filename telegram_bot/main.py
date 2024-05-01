@@ -7,7 +7,7 @@ from aiogram import Bot, Dispatcher
 from sys import exit
 
 from telegram_bot.bot import BotManager, set_commands
-from get_cred import HostConfig
+from telegram_bot.get_cred import HostConfig
 from telegram_bot.ServiceLocator import ServiceLocator
 
 

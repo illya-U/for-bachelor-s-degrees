@@ -4,7 +4,7 @@ from aiogram import Router, types, F
 from aiogram.fsm.context import FSMContext
 from aiogram.types import ReplyKeyboardRemove
 
-from get_cred import HostConfig
+from telegram_bot.get_cred import HostConfig
 from telegram_bot.ServiceLocator import ServiceLocator
 from telegram_bot.bd_classes.initializeBD import SessionManager
 from telegram_bot.FinalStateMachine import LocationSender

@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from get_cred import HostConfig
+
+CRED = HostConfig()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -73,13 +77,18 @@ WSGI_APPLICATION = 'viewer_user_messages.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+DATABASE_CRED = CRED.Database
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': DATABASE_CRED["DB_NAME"],
+        'USER': DATABASE_CRED["DB_USER"],
+        'PASSWORD': DATABASE_CRED["DB_PASSWORD"],
+        'HOST': DATABASE_CRED["DB_HOST"],
+        'PORT': DATABASE_CRED["DB_PORT"],
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

@@ -25,5 +25,3 @@ class HostConfig:
     @property
     def LocationPhoto(self):
         return self.config["LocationPhoto"]
-
-
