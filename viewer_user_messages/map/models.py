@@ -23,7 +23,7 @@ class User(models.Model):
     user_photo_path = models.CharField(blank=True, null=True)
 
     def __str__(self):
-        return f"user_id = {self.user_id} '{self.name}'"
+        return f"user_id = {self.user_id} '{self.user_name}'"
 
     class Meta:
         managed = False
