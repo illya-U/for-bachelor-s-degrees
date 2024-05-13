@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Popup</title>
+    <style>
+        body {
+            font-family: 'Roboto-Light', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .popup {
+            width: 300px;
+            border: 2px solid #000;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .user-image, .popup-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .user-image-small {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .description {
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+    <div class="popup">
+        <div class="user-info">
+            <img src="{{ context.user_photo_url }}" alt="User" class="user-image-small">
+            <div>{{ context.user_name }}</div>
+        </div>
+        <img src="{{ context.location_photo }}" alt="Popup" class="popup-image">
+        <p class="description">{{ context.message }}</p>
+    </div>
+</body>
+</html>
