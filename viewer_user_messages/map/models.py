@@ -19,7 +19,7 @@ class PointOnTheMap(models.Model):
 
 
 class User(models.Model):
-    user_id = models.IntegerField(primary_key=True)
+    user_id = models.BigIntegerField(primary_key=True)
     user_name = models.CharField(max_length=100)
     user_photo_path = models.ImageField(blank=True, null=True)
 
