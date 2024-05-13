@@ -34,7 +34,7 @@ class MapView(TemplateView):
                 "location_photo": photo_path + str(point.photo_path),
             }
             html = render_to_string("map/popup.html", {"context": context})
-            iframe = folium.IFrame(html=html, width=300, height=500)
+            iframe = folium.IFrame(html=html, width=400, height=700)
             popup = folium.Popup(iframe, max_width=1000)
             marker = folium.Marker([point.latitude, point.longitude], popup=popup)
             marker.add_to(map)
