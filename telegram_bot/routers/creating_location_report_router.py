@@ -10,6 +10,12 @@ from bd_classes.initializeBD import SessionManager
 from FinalStateMachine import LocationSender
 from routers.abstract_router import AbstractRouter
 
+TR_TO_KEYS_MAP = {
+    "location": "геолокація",
+    "description": "опис що не так",
+    "photo_path": "фотографію"
+}
+
 
 class CreatingLocationReportRouter(AbstractRouter):
     router: Router
@@ -74,7 +80,7 @@ class CreatingLocationReportRouter(AbstractRouter):
         not_fulfilled_requirements = await self._get_not_fulfilled_requirements(state)
 
         if not_fulfilled_requirements:
-            needed_requirements = ", ".join(not_fulfilled_requirements)
+            needed_requirements = ", ".join([TR_TO_KEYS_MAP.get(requirement, "невідома умова") for requirement in not_fulfilled_requirements])
             await message.reply(start_of_answer + f"Тобі залишилось надіслати тільки {needed_requirements}")
             return
 
@@ -108,7 +114,7 @@ class CreatingLocationReportRouter(AbstractRouter):
         location_photo_path = location_folder_photo_path + file_name
 
         await bot.download(file=photo_file_id, destination=location_photo_path)
-        return location_photo_path
+        return file_name
 
 
 

@@ -49,13 +49,13 @@ class RegistrationUserRouter(AbstractRouter):
         self.session.create_new_user(
             user_id=user_id,
             user_name=user_name,
-            user_photo_path=user_photo_folder_path + user_photo_name
+            user_photo_path=user_photo_name
         )
 
         await self.answer_for_start_handler(message=message, state=state, is_new_user=True)
 
     async def answer_for_start_handler(self, message: types.Message, state: FSMContext, is_new_user):
-        new_user_message = "Привіт. Надішліть мені свою геолокацію та фото, і я збережу цю інформацію у базі даних."
+        new_user_message = "Привіт. Надішліть мені свою геолокацію, фото і що не так, і я збережу цю інформацію у базі даних."
         old_user_message = "Надішліть мені свою геолокацію та фото, і я збережу цю інформацію у базі даних."
 
         await message.answer(new_user_message if is_new_user else old_user_message, reply_markup=get_send_location_button())
